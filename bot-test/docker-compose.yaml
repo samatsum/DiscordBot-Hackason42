@@ -1,0 +1,9 @@
+services:
+  bot:
+    image: discord-bot-image  # 手動ビルドしたイメージを指定
+    # build: .                # ここをコメントアウト
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    restart: always
