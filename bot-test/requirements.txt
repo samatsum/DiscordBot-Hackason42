@@ -1,3 +1,4 @@
-discord.py
-python-dotenv
-requests
+# バージョンを固定（ピン留め）し、環境の冪等性（常に同じ結果になること）を保証する
+discord.py==2.3.2
+python-dotenv==1.0.0
+requests==2.31.0

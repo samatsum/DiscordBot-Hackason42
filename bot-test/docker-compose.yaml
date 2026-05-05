@@ -1,9 +1,11 @@
 services:
   bot:
-    image: discord-bot-image  # 手動ビルドしたイメージを指定
-    # build: .                # ここをコメントアウト
-    volumes:
-      - .:/app
+    build: .
+    container_name: mealtogether_bot
     env_file:
       - .env
-    restart: always
+    volumes:
+      # ホストのsrcディレクトリをコンテナ内にマウント（開発時のホットリロード用）
+      - ./src:/app/src
+    init: true  # 【重要】PID 1問題を解決し、シグナルを正しく処理する
+    restart: unless-stopped # クラッシュ時に自動再起動
