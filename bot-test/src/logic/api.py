@@ -22,3 +22,13 @@ class FTAPIClient:
         if not token: return False
         url = f"https://api.intra.42.fr/v2/users/{login.lower()}"
         return requests.get(url, headers={"Authorization": f"Bearer {token}"}).status_code == 200
+
+    def get_user_image(self, login):
+        """対象ユーザーのIntra画像URLを取得する"""
+        token = self._get_token()
+        if not token: return None
+        url = f"https://api.intra.42.fr/v2/users/{login.lower()}"
+        res = requests.get(url, headers={"Authorization": f"Bearer {token}"})
+        if res.status_code == 200:
+            return res.json().get("image", {}).get("link")
+        return None

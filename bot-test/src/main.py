@@ -1,5 +1,6 @@
 import os
 import discord
+import asyncio
 from discord import app_commands
 from discord.ext import tasks
 from dotenv import load_dotenv
@@ -15,7 +16,6 @@ UID, SECRET = os.getenv("FORTYTWO_APP_UID"), os.getenv("FORTYTWO_APP_SECRET")
 
 class MealBot(discord.Client):
     def __init__(self):
-        # membersインテントが必須(Discordのメンバーリスト取得のため)
         intents = discord.Intents.default()
         intents.members = True 
         super().__init__(intents=intents)
@@ -35,24 +35,35 @@ class MealBot(discord.Client):
 
 client = MealBot()
 
-# --- 共通ヘルパー関数 (15分単位への厳密な丸め) ---
+# --- DM送信ヘルパー ---
+async def send_match_dm(user: discord.User, opponent_intra: str, image_url: str):
+    embed = discord.Embed(
+        title="🎉 マッチング成立！",
+        description=f"**{opponent_intra}** さんとマッチングしました！",
+        color=0x00ff00
+    )
+    if image_url:
+        embed.set_image(url=image_url)
+    try:
+        await user.send(embed=embed)
+    except:
+        pass
+
+# --- 共通ヘルパー関数・オートコンプリート (既存のまま) ---
 def get_rounded_time(dt: datetime) -> datetime:
     dt = dt.replace(second=0, microsecond=0)
     if dt.minute % 15 != 0:
         dt += timedelta(minutes=(15 - dt.minute % 15))
     return dt
 
-# --- オートコンプリート ---
 async def start_auto(it: discord.Interaction, current: str):
     base = get_rounded_time(datetime.now())
-    choices = [(base + timedelta(minutes=i * 15)).strftime("%H:%M") for i in range(25)]#Discordの仕様上、最大２５らしい。
+    choices = [(base + timedelta(minutes=i * 15)).strftime("%H:%M") for i in range(25)]
     return [app_commands.Choice(name=t, value=t) for t in choices if current in t][:25]
 
 async def end_auto(it: discord.Interaction, current: str):
     now = datetime.now()
     s_val = getattr(it.namespace, 'start', None)
-    
-    # startが正しく入力されている場合はそれを基準に、そうでない場合は現在時刻を基準にする
     base = get_rounded_time(now)
     if s_val and ":" in s_val:
         try:
@@ -60,19 +71,14 @@ async def end_auto(it: discord.Interaction, current: str):
             temp_base = now.replace(hour=h, minute=m, second=0, microsecond=0)
             if temp_base < now - timedelta(minutes=15): temp_base += timedelta(days=1)
             base = get_rounded_time(temp_base)
-        except ValueError:
-            pass # 変換失敗時は現在のrounded_timeをフォールバックとして使用
-
-    # 1時間後(4スロット分)から10時間後まで
+        except ValueError: pass
     choices = [(base + timedelta(minutes=i * 15)).strftime("%H:%M") for i in range(4, 42)]
     return [app_commands.Choice(name=t, value=t) for t in choices if current in t][:25]
 
 async def intra_auto(it: discord.Interaction, current: str):
-    # Discordのサーバーメンバーから取得 (爆速)
     if not it.guild: return []
     members = it.guild.members
     matches = [m.display_name for m in members if current.lower() in m.display_name.lower()]
-    # 重複排除して25件返す
     matches = list(dict.fromkeys(matches))
     return [app_commands.Choice(name=m, value=m) for m in matches][:25]
 
@@ -83,9 +89,9 @@ async def intra_auto(it: discord.Interaction, current: str):
 async def mealtogether(it: discord.Interaction, start: str, end: str, intras: str):
     await it.response.defer(ephemeral=True)
     
-    # Discord名とIntra名が一致しているかの検証
+    # API検証
     if not client.api.validate_user(intras):
-        return await it.followup.send(f"❌ User `{intras}` は42のIntra上に存在しません。名前が一致しているか確認してください。")
+        return await it.followup.send(f"❌ User `{intras}` は42のIntra上に存在しません。")
     
     now = datetime.now()
     sh, sm = map(int, start.split(":"))
@@ -104,7 +110,22 @@ async def mealtogether(it: discord.Interaction, start: str, end: str, intras: st
 
     matched = client.matcher.find_match(req)
     if matched:
-        await it.followup.send(f"🎉 Matched with {matched.intra_name}!")
+        # 画像取得 (相手の画像を自分へ、自分の画像を相手へ)
+        opp_image = client.api.get_user_image(matched.intra_name)
+        my_image = client.api.get_user_image(intras)
+
+        # 自分へのDM (相手の画像)
+        await send_match_dm(it.user, matched.intra_name, opp_image)
+
+        # 相手へのDM (自分の画像)
+        try:
+            opponent_user = await client.fetch_user(matched.discord_id)
+            if opponent_user:
+                await send_match_dm(opponent_user, intras, my_image)
+        except:
+            pass
+
+        await it.followup.send(f"🎉 Matched with {matched.intra_name}! DMを確認してください。")
     else:
         client.matcher.add_request(req)
         await it.followup.send(f"✅ 追加しました: {start}-{end}")
