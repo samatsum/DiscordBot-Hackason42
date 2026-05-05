@@ -65,8 +65,10 @@ def parse_time_string(time_str: str, base_time: datetime) -> tuple[datetime, dat
 
 # --- コマンド定義 ---
 
+
+
 @client.tree.command(name="mealtogether", description="食事マッチングの待機列に入ります")
-@app_commands.describe(time="希望時間帯 (例: 13:00-15:00)", intra="あなたのIntra名")
+@app_commands.describe(time="希望時間帯 (例: 13:00-15:15 ※15分刻みで入力)",intra="あなたのIntra名")
 async def cmd_mealtogether(interaction: discord.Interaction, time: str, intra: str):
     await interaction.response.defer(ephemeral=True) # API照合に時間がかかるため先にdefer
     
@@ -85,7 +87,10 @@ async def cmd_mealtogether(interaction: discord.Interaction, time: str, intra: s
         return
 
     if start_dt.minute % 15 != 0 or end_dt.minute % 15 != 0:
-        await interaction.followup.send("時刻は15分単位で指定してください。")
+        await interaction.followup.send(
+            "❌ **入力エラー：**\n"
+            "時間は**00分、15分、30分、45分**のいずれかで指定してください。\n"
+            "（例：`13:00-14:15` はOKですが、`13:10-13:25` は指定できません）")
         return
 
     # 3. リクエスト作成と重複チェック
