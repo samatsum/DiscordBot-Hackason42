@@ -45,7 +45,7 @@ def get_rounded_time(dt: datetime) -> datetime:
 # --- オートコンプリート ---
 async def start_auto(it: discord.Interaction, current: str):
     base = get_rounded_time(datetime.now())
-    choices = [(base + timedelta(minutes=i * 15)).strftime("%H:%M") for i in range(42)]
+    choices = [(base + timedelta(minutes=i * 15)).strftime("%H:%M") for i in range(25)]#Discordの仕様上、最大２５らしい。
     return [app_commands.Choice(name=t, value=t) for t in choices if current in t][:25]
 
 async def end_auto(it: discord.Interaction, current: str):
