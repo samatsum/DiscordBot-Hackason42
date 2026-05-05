@@ -49,13 +49,14 @@ async def send_match_dm(user: discord.User, opponent_intra: str, image_url: str)
     except:
         pass
 
-# --- 共通ヘルパー関数・オートコンプリート (既存のまま) ---
+# --- 共通ヘルパー関数 ---
 def get_rounded_time(dt: datetime) -> datetime:
     dt = dt.replace(second=0, microsecond=0)
     if dt.minute % 15 != 0:
         dt += timedelta(minutes=(15 - dt.minute % 15))
     return dt
 
+# --- オートコンプリート ---
 async def start_auto(it: discord.Interaction, current: str):
     base = get_rounded_time(datetime.now())
     choices = [(base + timedelta(minutes=i * 15)).strftime("%H:%M") for i in range(25)]
@@ -75,23 +76,19 @@ async def end_auto(it: discord.Interaction, current: str):
     choices = [(base + timedelta(minutes=i * 15)).strftime("%H:%M") for i in range(4, 42)]
     return [app_commands.Choice(name=t, value=t) for t in choices if current in t][:25]
 
-async def intra_auto(it: discord.Interaction, current: str):
-    if not it.guild: return []
-    members = it.guild.members
-    matches = [m.display_name for m in members if current.lower() in m.display_name.lower()]
-    matches = list(dict.fromkeys(matches))
-    return [app_commands.Choice(name=m, value=m) for m in matches][:25]
-
 # --- コマンド ---
 @client.tree.command(name="mealtogether")
-@app_commands.describe(start="開始", end="終了", intras="Intra名(Discord表示名)")
-@app_commands.autocomplete(start=start_auto, end=end_auto, intras=intra_auto)
-async def mealtogether(it: discord.Interaction, start: str, end: str, intras: str):
+@app_commands.describe(start="開始", end="終了")
+@app_commands.autocomplete(start=start_auto, end=end_auto)
+async def mealtogether(it: discord.Interaction, start: str, end: str):
     await it.response.defer(ephemeral=True)
     
-    # API検証
-    if not client.api.validate_user(intras):
-        return await it.followup.send(f"❌ User `{intras}` は42のIntra上に存在しません。")
+    # 自身の表示名(display_name)をIntra名として使用
+    my_intra = it.user.display_name
+    
+    # API検証: 表示名が42のIntra上に実在するか確認
+    if not client.api.validate_user(my_intra):
+        return await it.followup.send(f"❌ あなたの表示名 `{my_intra}` は42のIntra上に存在しません。表示名をIntraログイン名に合わせてください。")
     
     now = datetime.now()
     sh, sm = map(int, start.split(":"))
@@ -104,15 +101,17 @@ async def mealtogether(it: discord.Interaction, start: str, end: str, intras: st
     if e_dt - s_dt < timedelta(hours=1):
         return await it.followup.send("❌ 最短でも1時間以上の枠を指定してください。")
 
-    req = MealRequest(it.user.id, intras, s_dt, e_dt)
+    req = MealRequest(it.user.id, my_intra, s_dt, e_dt)
+    
+    # 同一人物(Discord ID)の重複チェック
     if client.matcher.check_user_overlap(it.user.id, req):
-        return await it.followup.send("⚠️ 時間が重複しています。")
+        return await it.followup.send("⚠️ 既に同時間帯に予約が入っています。")
 
     matched = client.matcher.find_match(req)
     if matched:
-        # 画像取得 (相手の画像を自分へ、自分の画像を相手へ)
+        # 画像取得処理
         opp_image = client.api.get_user_image(matched.intra_name)
-        my_image = client.api.get_user_image(intras)
+        my_image = client.api.get_user_image(my_intra)
 
         # 自分へのDM (相手の画像)
         await send_match_dm(it.user, matched.intra_name, opp_image)
@@ -121,7 +120,7 @@ async def mealtogether(it: discord.Interaction, start: str, end: str, intras: st
         try:
             opponent_user = await client.fetch_user(matched.discord_id)
             if opponent_user:
-                await send_match_dm(opponent_user, intras, my_image)
+                await send_match_dm(opponent_user, my_intra, my_image)
         except:
             pass
 

@@ -10,6 +10,9 @@ class MatchManager:
         self.queue = [req for req in self.queue if not req.is_expired(now)]
 
     def check_user_overlap(self, discord_id: int, new_req: MealRequest) -> bool:
+        """
+        1人のDiscordユーザーが複数の予約（別Intra名含む）を被せて入れるのを防ぐ
+        """
         user_requests = [req for req in self.queue if req.discord_id == discord_id]
         for req in user_requests:
             if max(req.start_time, new_req.start_time) < min(req.end_time, new_req.end_time):
@@ -17,7 +20,11 @@ class MatchManager:
         return False
 
     def find_match(self, new_req: MealRequest) -> Optional[MealRequest]:
+        """
+        自分以外のユーザー（異なるDiscord ID）とのみマッチングさせる
+        """
         for i, existing_req in enumerate(self.queue):
+            # 自分自身（同一Discord ID）はスキップ
             if existing_req.discord_id == new_req.discord_id:
                 continue
             if new_req.overlaps_with(existing_req):
