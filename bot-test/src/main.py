@@ -11,9 +11,9 @@ from logic.api import FTAPIClient
 
 load_dotenv()
 
-# 変数名を修正：あなたの指定に基づき丸写し[cite: 2]
-TOKEN = os.getenv("DISCORD_BOT_TOKEN")
-GUILD_ID = os.getenv("DISCORD_GUILD_ID")
+# 変数名をあなたの指定通りに修正
+TOKEN = os.getenv("DISCORD_TOKEN") 
+GUILD_ID = os.getenv("GUILD_ID")
 UID = os.getenv("FORTYTWO_APP_UID")
 SECRET = os.getenv("FORTYTWO_APP_SECRET")
 
@@ -37,7 +37,7 @@ class MealBot(discord.Client):
 
 client = MealBot()
 
-# スマホ用オートコンプリート：15分刻みの候補を出す
+# スマホ用オートコンプリート
 async def time_autocomplete(it: discord.Interaction, current: str):
     now = datetime.now()
     base = now.replace(second=0, microsecond=0)
@@ -46,7 +46,7 @@ async def time_autocomplete(it: discord.Interaction, current: str):
     choices = [(base + timedelta(minutes=i * 15)).strftime("%H:%M") for i in range(25)]
     return [app_commands.Choice(name=t, value=t) for t in choices if current in t]
 
-# 通知用補助関数
+# 通知用
 async def notify(it: discord.Interaction, new: MealRequest, old: MealRequest):
     s, e = max(new.start_time, old.start_time), min(new.end_time, old.end_time)
     t_range = f"{s.strftime('%H:%M')} - {e.strftime('%H:%M')}"
@@ -58,14 +58,13 @@ async def notify(it: discord.Interaction, new: MealRequest, old: MealRequest):
     await it.followup.send(f"🎉 {new.intra_name} and {old.intra_name} matched!", ephemeral=False)
 
 @client.tree.command(name="mealtogether", description="meal together!")
-@app_commands.describe(start="開始時間", end="終了時間", intras="あなたのIntra名")
+@app_commands.describe(start="13:00", end="15:00", intras="samatsum")
 @app_commands.autocomplete(start=time_autocomplete, end=time_autocomplete)
 async def mealtogether(it: discord.Interaction, start: str, end: str, intras: str):
     await it.response.defer(ephemeral=True)
     if not client.api.validate_user(intras):
         return await it.followup.send(f"❌ User `{intras}` not found.")
 
-    # 時刻変換と日付跨ぎ処理
     now = datetime.now()
     sh, sm = map(int, start.split(":"))
     eh, em = map(int, end.split(":"))
