@@ -16,8 +16,11 @@ UID, SECRET = os.getenv("FORTYTWO_APP_UID"), os.getenv("FORTYTWO_APP_SECRET")
 
 class MealBot(discord.Client):
     def __init__(self):
+        # membersインテントが必須(Discordのメンバーリスト取得のため)
         intents = discord.Intents.default()
-        intents.members = True 
+        intents.members = True
+        # --- DEBUG: ping/pong（どのBotが反応しているか）。OFFにする時は次の1行をコメントし、on_message の DEBUG ブロックもコメント ---
+        intents.message_content = True
         super().__init__(intents=intents)
         self.tree = app_commands.CommandTree(self)
         self.matcher = MatchManager()
@@ -33,6 +36,13 @@ class MealBot(discord.Client):
     async def cleanup_task(self):
         self.matcher.cleanup(datetime.now())
 
+    # --- DEBUG: ping だけ（PINGPONG と同様の完全一致）。OFF: このメソッド全体をコメント。__init__ の message_content 行もコメント ---
+    async def on_message(self, message: discord.Message):
+        if message.author == self.user:
+            return
+        if message.content == "ping":
+            await message.channel.send("pong-torinoue3")
+            
 client = MealBot()
 
 # --- DM送信ヘルパー ---
