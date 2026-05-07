@@ -6,8 +6,13 @@ class MatchManager:
     def __init__(self):
         self.queue: List[MealRequest] = []
 
-    def cleanup(self, now: datetime):
+    def cleanup(self, now: datetime) -> List[MealRequest]:
+        """
+        期限切れリクエストをキューから取り除き、削除対象を返す
+        """
+        expired = [req for req in self.queue if req.is_expired(now)]
         self.queue = [req for req in self.queue if not req.is_expired(now)]
+        return expired
 
     def check_user_overlap(self, discord_id: int, new_req: MealRequest) -> bool:
         """
@@ -34,7 +39,8 @@ class MatchManager:
     def add_request(self, req: MealRequest):
         self.queue.append(req)
 
-    def cancel_user_requests(self, discord_id: int) -> int:
-        initial_count = len(self.queue)
+    def cancel_user_requests(self, discord_id: int) -> List[MealRequest]:
+        """キャンセルされたリクエストを返す（チャンネル投稿削除のため）"""
+        cancelled = [req for req in self.queue if req.discord_id == discord_id]
         self.queue = [req for req in self.queue if req.discord_id != discord_id]
-        return initial_count - len(self.queue)
+        return cancelled
