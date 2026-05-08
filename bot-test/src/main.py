@@ -21,8 +21,13 @@ class MatchBot(commands.Bot):
     async def setup_hook(self):
         # Cogの動的ロード
         await self.load_extension("cogs.matching_cog")
-        guild = discord.Object(id=int(os.getenv("GUILD_ID")))
-        self.tree.copy_global_to(guild=guild)
+        
+        # 環境変数の安全な読み込み（堅牢性の担保）
+        raw_guild_id = os.getenv("GUILD_ID")
+        guild = discord.Object(id=int(raw_guild_id)) if raw_guild_id else None
+        
+        if guild:
+            self.tree.copy_global_to(guild=guild)
         await self.tree.sync(guild=guild)
 
 bot = MatchBot()

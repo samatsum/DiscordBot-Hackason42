@@ -1,0 +1,860 @@
+mealtogether_bot  | [30;1m2026-05-08 17:57:00[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 935, in _load_from_module_spec
+mealtogether_bot  |     spec.loader.exec_module(lib)  # type: ignore
+mealtogether_bot  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+mealtogether_bot  |   File "/app/src/cogs/matching_cog.py", line 98
+mealtogether_bot  |     async def _send_private_notifications(self, it: discord.Interaction, my_req: MatchRequest, opp_req: MatchRequest):
+mealtogether_bot  |                                                                                                                       ^
+mealtogether_bot  | IndentationError: unindent does not match any outer indentation level
+mealtogether_bot  | 
+mealtogether_bot  | The above exception was the direct cause of the following exception:
+mealtogether_bot  | 
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/app/src/main.py", line 36, in <module>
+mealtogether_bot  |     bot.run(os.getenv("DISCORD_TOKEN"))
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 860, in run
+mealtogether_bot  |     asyncio.run(runner())
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+mealtogether_bot  |     return runner.run(main)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+mealtogether_bot  |     return self._loop.run_until_complete(task)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+mealtogether_bot  |     return future.result()
+mealtogether_bot  |            ^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+mealtogether_bot  |     await self.start(token, reconnect=reconnect)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 777, in start
+mealtogether_bot  |     await self.login(token)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 621, in login
+mealtogether_bot  |     await self.setup_hook()
+mealtogether_bot  |   File "/app/src/main.py", line 23, in setup_hook
+mealtogether_bot  |     await self.load_extension("cogs.matching_cog")
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 1013, in load_extension
+mealtogether_bot  |     await self._load_from_module_spec(spec, name)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 938, in _load_from_module_spec
+mealtogether_bot  |     raise errors.ExtensionFailed(key, e) from e
+mealtogether_bot  | discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.matching_cog' raised an error: IndentationError: unindent does not match any outer indentation level (matching_cog.py, line 98)
+mealtogether_bot  | [30;1m2026-05-08 17:57:03[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 935, in _load_from_module_spec
+mealtogether_bot  |     spec.loader.exec_module(lib)  # type: ignore
+mealtogether_bot  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+mealtogether_bot  |   File "/app/src/cogs/matching_cog.py", line 98
+mealtogether_bot  |     async def _send_private_notifications(self, it: discord.Interaction, my_req: MatchRequest, opp_req: MatchRequest):
+mealtogether_bot  |                                                                                                                       ^
+mealtogether_bot  | IndentationError: unindent does not match any outer indentation level
+mealtogether_bot  | 
+mealtogether_bot  | The above exception was the direct cause of the following exception:
+mealtogether_bot  | 
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/app/src/main.py", line 36, in <module>
+mealtogether_bot  |     bot.run(os.getenv("DISCORD_TOKEN"))
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 860, in run
+mealtogether_bot  |     asyncio.run(runner())
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+mealtogether_bot  |     return runner.run(main)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+mealtogether_bot  |     return self._loop.run_until_complete(task)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+mealtogether_bot  |     return future.result()
+mealtogether_bot  |            ^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+mealtogether_bot  |     await self.start(token, reconnect=reconnect)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 777, in start
+mealtogether_bot  |     await self.login(token)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 621, in login
+mealtogether_bot  |     await self.setup_hook()
+mealtogether_bot  |   File "/app/src/main.py", line 23, in setup_hook
+mealtogether_bot  |     await self.load_extension("cogs.matching_cog")
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 1013, in load_extension
+mealtogether_bot  |     await self._load_from_module_spec(spec, name)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 938, in _load_from_module_spec
+mealtogether_bot  |     raise errors.ExtensionFailed(key, e) from e
+mealtogether_bot  | discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.matching_cog' raised an error: IndentationError: unindent does not match any outer indentation level (matching_cog.py, line 98)
+mealtogether_bot  | [30;1m2026-05-08 17:57:06[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 935, in _load_from_module_spec
+mealtogether_bot  |     spec.loader.exec_module(lib)  # type: ignore
+mealtogether_bot  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+mealtogether_bot  |   File "/app/src/cogs/matching_cog.py", line 98
+mealtogether_bot  |     async def _send_private_notifications(self, it: discord.Interaction, my_req: MatchRequest, opp_req: MatchRequest):
+mealtogether_bot  |                                                                                                                       ^
+mealtogether_bot  | IndentationError: unindent does not match any outer indentation level
+mealtogether_bot  | 
+mealtogether_bot  | The above exception was the direct cause of the following exception:
+mealtogether_bot  | 
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/app/src/main.py", line 36, in <module>
+mealtogether_bot  |     bot.run(os.getenv("DISCORD_TOKEN"))
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 860, in run
+mealtogether_bot  |     asyncio.run(runner())
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+mealtogether_bot  |     return runner.run(main)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+mealtogether_bot  |     return self._loop.run_until_complete(task)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+mealtogether_bot  |     return future.result()
+mealtogether_bot  |            ^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+mealtogether_bot  |     await self.start(token, reconnect=reconnect)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 777, in start
+mealtogether_bot  |     await self.login(token)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 621, in login
+mealtogether_bot  |     await self.setup_hook()
+mealtogether_bot  |   File "/app/src/main.py", line 23, in setup_hook
+mealtogether_bot  |     await self.load_extension("cogs.matching_cog")
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 1013, in load_extension
+mealtogether_bot  |     await self._load_from_module_spec(spec, name)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 938, in _load_from_module_spec
+mealtogether_bot  |     raise errors.ExtensionFailed(key, e) from e
+mealtogether_bot  | discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.matching_cog' raised an error: IndentationError: unindent does not match any outer indentation level (matching_cog.py, line 98)
+mealtogether_bot  | [30;1m2026-05-08 17:57:09[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 935, in _load_from_module_spec
+mealtogether_bot  |     spec.loader.exec_module(lib)  # type: ignore
+mealtogether_bot  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+mealtogether_bot  |   File "/app/src/cogs/matching_cog.py", line 98
+mealtogether_bot  |     async def _send_private_notifications(self, it: discord.Interaction, my_req: MatchRequest, opp_req: MatchRequest):
+mealtogether_bot  |                                                                                                                       ^
+mealtogether_bot  | IndentationError: unindent does not match any outer indentation level
+mealtogether_bot  | 
+mealtogether_bot  | The above exception was the direct cause of the following exception:
+mealtogether_bot  | 
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/app/src/main.py", line 36, in <module>
+mealtogether_bot  |     bot.run(os.getenv("DISCORD_TOKEN"))
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 860, in run
+mealtogether_bot  |     asyncio.run(runner())
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+mealtogether_bot  |     return runner.run(main)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+mealtogether_bot  |     return self._loop.run_until_complete(task)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+mealtogether_bot  |     return future.result()
+mealtogether_bot  |            ^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+mealtogether_bot  |     await self.start(token, reconnect=reconnect)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 777, in start
+mealtogether_bot  |     await self.login(token)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 621, in login
+mealtogether_bot  |     await self.setup_hook()
+mealtogether_bot  |   File "/app/src/main.py", line 23, in setup_hook
+mealtogether_bot  |     await self.load_extension("cogs.matching_cog")
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 1013, in load_extension
+mealtogether_bot  |     await self._load_from_module_spec(spec, name)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 938, in _load_from_module_spec
+mealtogether_bot  |     raise errors.ExtensionFailed(key, e) from e
+mealtogether_bot  | discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.matching_cog' raised an error: IndentationError: unindent does not match any outer indentation level (matching_cog.py, line 98)
+mealtogether_bot  | [30;1m2026-05-08 17:57:13[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 935, in _load_from_module_spec
+mealtogether_bot  |     spec.loader.exec_module(lib)  # type: ignore
+mealtogether_bot  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+mealtogether_bot  |   File "/app/src/cogs/matching_cog.py", line 98
+mealtogether_bot  |     async def _send_private_notifications(self, it: discord.Interaction, my_req: MatchRequest, opp_req: MatchRequest):
+mealtogether_bot  |                                                                                                                       ^
+mealtogether_bot  | IndentationError: unindent does not match any outer indentation level
+mealtogether_bot  | 
+mealtogether_bot  | The above exception was the direct cause of the following exception:
+mealtogether_bot  | 
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/app/src/main.py", line 36, in <module>
+mealtogether_bot  |     bot.run(os.getenv("DISCORD_TOKEN"))
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 860, in run
+mealtogether_bot  |     asyncio.run(runner())
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+mealtogether_bot  |     return runner.run(main)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+mealtogether_bot  |     return self._loop.run_until_complete(task)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+mealtogether_bot  |     return future.result()
+mealtogether_bot  |            ^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+mealtogether_bot  |     await self.start(token, reconnect=reconnect)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 777, in start
+mealtogether_bot  |     await self.login(token)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 621, in login
+mealtogether_bot  |     await self.setup_hook()
+mealtogether_bot  |   File "/app/src/main.py", line 23, in setup_hook
+mealtogether_bot  |     await self.load_extension("cogs.matching_cog")
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 1013, in load_extension
+mealtogether_bot  |     await self._load_from_module_spec(spec, name)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 938, in _load_from_module_spec
+mealtogether_bot  |     raise errors.ExtensionFailed(key, e) from e
+mealtogether_bot  | discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.matching_cog' raised an error: IndentationError: unindent does not match any outer indentation level (matching_cog.py, line 98)
+mealtogether_bot  | [30;1m2026-05-08 17:57:17[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 935, in _load_from_module_spec
+mealtogether_bot  |     spec.loader.exec_module(lib)  # type: ignore
+mealtogether_bot  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+mealtogether_bot  |   File "/app/src/cogs/matching_cog.py", line 98
+mealtogether_bot  |     async def _send_private_notifications(self, it: discord.Interaction, my_req: MatchRequest, opp_req: MatchRequest):
+mealtogether_bot  |                                                                                                                       ^
+mealtogether_bot  | IndentationError: unindent does not match any outer indentation level
+mealtogether_bot  | 
+mealtogether_bot  | The above exception was the direct cause of the following exception:
+mealtogether_bot  | 
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/app/src/main.py", line 36, in <module>
+mealtogether_bot  |     bot.run(os.getenv("DISCORD_TOKEN"))
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 860, in run
+mealtogether_bot  |     asyncio.run(runner())
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+mealtogether_bot  |     return runner.run(main)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+mealtogether_bot  |     return self._loop.run_until_complete(task)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+mealtogether_bot  |     return future.result()
+mealtogether_bot  |            ^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+mealtogether_bot  |     await self.start(token, reconnect=reconnect)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 777, in start
+mealtogether_bot  |     await self.login(token)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 621, in login
+mealtogether_bot  |     await self.setup_hook()
+mealtogether_bot  |   File "/app/src/main.py", line 23, in setup_hook
+mealtogether_bot  |     await self.load_extension("cogs.matching_cog")
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 1013, in load_extension
+mealtogether_bot  |     await self._load_from_module_spec(spec, name)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 938, in _load_from_module_spec
+mealtogether_bot  |     raise errors.ExtensionFailed(key, e) from e
+mealtogether_bot  | discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.matching_cog' raised an error: IndentationError: unindent does not match any outer indentation level (matching_cog.py, line 98)
+mealtogether_bot  | [30;1m2026-05-08 17:57:22[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 935, in _load_from_module_spec
+mealtogether_bot  |     spec.loader.exec_module(lib)  # type: ignore
+mealtogether_bot  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+mealtogether_bot  |   File "/app/src/cogs/matching_cog.py", line 98
+mealtogether_bot  |     async def _send_private_notifications(self, it: discord.Interaction, my_req: MatchRequest, opp_req: MatchRequest):
+mealtogether_bot  |                                                                                                                       ^
+mealtogether_bot  | IndentationError: unindent does not match any outer indentation level
+mealtogether_bot  | 
+mealtogether_bot  | The above exception was the direct cause of the following exception:
+mealtogether_bot  | 
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/app/src/main.py", line 36, in <module>
+mealtogether_bot  |     bot.run(os.getenv("DISCORD_TOKEN"))
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 860, in run
+mealtogether_bot  |     asyncio.run(runner())
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+mealtogether_bot  |     return runner.run(main)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+mealtogether_bot  |     return self._loop.run_until_complete(task)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+mealtogether_bot  |     return future.result()
+mealtogether_bot  |            ^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+mealtogether_bot  |     await self.start(token, reconnect=reconnect)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 777, in start
+mealtogether_bot  |     await self.login(token)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 621, in login
+mealtogether_bot  |     await self.setup_hook()
+mealtogether_bot  |   File "/app/src/main.py", line 23, in setup_hook
+mealtogether_bot  |     await self.load_extension("cogs.matching_cog")
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 1013, in load_extension
+mealtogether_bot  |     await self._load_from_module_spec(spec, name)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 938, in _load_from_module_spec
+mealtogether_bot  |     raise errors.ExtensionFailed(key, e) from e
+mealtogether_bot  | discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.matching_cog' raised an error: IndentationError: unindent does not match any outer indentation level (matching_cog.py, line 98)
+mealtogether_bot  | [30;1m2026-05-08 17:57:31[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 935, in _load_from_module_spec
+mealtogether_bot  |     spec.loader.exec_module(lib)  # type: ignore
+mealtogether_bot  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+mealtogether_bot  |   File "/app/src/cogs/matching_cog.py", line 98
+mealtogether_bot  |     async def _send_private_notifications(self, it: discord.Interaction, my_req: MatchRequest, opp_req: MatchRequest):
+mealtogether_bot  |                                                                                                                       ^
+mealtogether_bot  | IndentationError: unindent does not match any outer indentation level
+mealtogether_bot  | 
+mealtogether_bot  | The above exception was the direct cause of the following exception:
+mealtogether_bot  | 
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/app/src/main.py", line 36, in <module>
+mealtogether_bot  |     bot.run(os.getenv("DISCORD_TOKEN"))
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 860, in run
+mealtogether_bot  |     asyncio.run(runner())
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+mealtogether_bot  |     return runner.run(main)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+mealtogether_bot  |     return self._loop.run_until_complete(task)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+mealtogether_bot  |     return future.result()
+mealtogether_bot  |            ^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+mealtogether_bot  |     await self.start(token, reconnect=reconnect)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 777, in start
+mealtogether_bot  |     await self.login(token)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 621, in login
+mealtogether_bot  |     await self.setup_hook()
+mealtogether_bot  |   File "/app/src/main.py", line 23, in setup_hook
+mealtogether_bot  |     await self.load_extension("cogs.matching_cog")
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 1013, in load_extension
+mealtogether_bot  |     await self._load_from_module_spec(spec, name)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 938, in _load_from_module_spec
+mealtogether_bot  |     raise errors.ExtensionFailed(key, e) from e
+mealtogether_bot  | discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.matching_cog' raised an error: IndentationError: unindent does not match any outer indentation level (matching_cog.py, line 98)
+mealtogether_bot  | [30;1m2026-05-08 17:57:45[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 935, in _load_from_module_spec
+mealtogether_bot  |     spec.loader.exec_module(lib)  # type: ignore
+mealtogether_bot  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+mealtogether_bot  |   File "/app/src/cogs/matching_cog.py", line 98
+mealtogether_bot  |     async def _send_private_notifications(self, it: discord.Interaction, my_req: MatchRequest, opp_req: MatchRequest):
+mealtogether_bot  |                                                                                                                       ^
+mealtogether_bot  | IndentationError: unindent does not match any outer indentation level
+mealtogether_bot  | 
+mealtogether_bot  | The above exception was the direct cause of the following exception:
+mealtogether_bot  | 
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/app/src/main.py", line 36, in <module>
+mealtogether_bot  |     bot.run(os.getenv("DISCORD_TOKEN"))
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 860, in run
+mealtogether_bot  |     asyncio.run(runner())
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+mealtogether_bot  |     return runner.run(main)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+mealtogether_bot  |     return self._loop.run_until_complete(task)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+mealtogether_bot  |     return future.result()
+mealtogether_bot  |            ^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+mealtogether_bot  |     await self.start(token, reconnect=reconnect)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 777, in start
+mealtogether_bot  |     await self.login(token)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 621, in login
+mealtogether_bot  |     await self.setup_hook()
+mealtogether_bot  |   File "/app/src/main.py", line 23, in setup_hook
+mealtogether_bot  |     await self.load_extension("cogs.matching_cog")
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 1013, in load_extension
+mealtogether_bot  |     await self._load_from_module_spec(spec, name)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 938, in _load_from_module_spec
+mealtogether_bot  |     raise errors.ExtensionFailed(key, e) from e
+mealtogether_bot  | discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.matching_cog' raised an error: IndentationError: unindent does not match any outer indentation level (matching_cog.py, line 98)
+mealtogether_bot  | [30;1m2026-05-08 17:58:09[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 935, in _load_from_module_spec
+mealtogether_bot  |     spec.loader.exec_module(lib)  # type: ignore
+mealtogether_bot  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+mealtogether_bot  |   File "/app/src/cogs/matching_cog.py", line 98
+mealtogether_bot  |     async def _send_private_notifications(self, it: discord.Interaction, my_req: MatchRequest, opp_req: MatchRequest):
+mealtogether_bot  |                                                                                                                       ^
+mealtogether_bot  | IndentationError: unindent does not match any outer indentation level
+mealtogether_bot  | 
+mealtogether_bot  | The above exception was the direct cause of the following exception:
+mealtogether_bot  | 
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/app/src/main.py", line 36, in <module>
+mealtogether_bot  |     bot.run(os.getenv("DISCORD_TOKEN"))
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 860, in run
+mealtogether_bot  |     asyncio.run(runner())
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+mealtogether_bot  |     return runner.run(main)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+mealtogether_bot  |     return self._loop.run_until_complete(task)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+mealtogether_bot  |     return future.result()
+mealtogether_bot  |            ^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+mealtogether_bot  |     await self.start(token, reconnect=reconnect)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 777, in start
+mealtogether_bot  |     await self.login(token)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 621, in login
+mealtogether_bot  |     await self.setup_hook()
+mealtogether_bot  |   File "/app/src/main.py", line 23, in setup_hook
+mealtogether_bot  |     await self.load_extension("cogs.matching_cog")
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 1013, in load_extension
+mealtogether_bot  |     await self._load_from_module_spec(spec, name)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 938, in _load_from_module_spec
+mealtogether_bot  |     raise errors.ExtensionFailed(key, e) from e
+mealtogether_bot  | discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.matching_cog' raised an error: IndentationError: unindent does not match any outer indentation level (matching_cog.py, line 98)
+mealtogether_bot  | [30;1m2026-05-08 17:58:12[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 935, in _load_from_module_spec
+mealtogether_bot  |     spec.loader.exec_module(lib)  # type: ignore
+mealtogether_bot  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+mealtogether_bot  |   File "/app/src/cogs/matching_cog.py", line 98
+mealtogether_bot  |     async def _send_private_notifications(self, it: discord.Interaction, my_req: MatchRequest, opp_req: MatchRequest):
+mealtogether_bot  |                                                                                                                       ^
+mealtogether_bot  | IndentationError: unindent does not match any outer indentation level
+mealtogether_bot  | 
+mealtogether_bot  | The above exception was the direct cause of the following exception:
+mealtogether_bot  | 
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/app/src/main.py", line 36, in <module>
+mealtogether_bot  |     bot.run(os.getenv("DISCORD_TOKEN"))
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 860, in run
+mealtogether_bot  |     asyncio.run(runner())
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+mealtogether_bot  |     return runner.run(main)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+mealtogether_bot  |     return self._loop.run_until_complete(task)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+mealtogether_bot  |     return future.result()
+mealtogether_bot  |            ^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+mealtogether_bot  |     await self.start(token, reconnect=reconnect)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 777, in start
+mealtogether_bot  |     await self.login(token)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 621, in login
+mealtogether_bot  |     await self.setup_hook()
+mealtogether_bot  |   File "/app/src/main.py", line 23, in setup_hook
+mealtogether_bot  |     await self.load_extension("cogs.matching_cog")
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 1013, in load_extension
+mealtogether_bot  |     await self._load_from_module_spec(spec, name)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 938, in _load_from_module_spec
+mealtogether_bot  |     raise errors.ExtensionFailed(key, e) from e
+mealtogether_bot  | discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.matching_cog' raised an error: IndentationError: unindent does not match any outer indentation level (matching_cog.py, line 98)
+mealtogether_bot  | [30;1m2026-05-08 17:58:15[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 935, in _load_from_module_spec
+mealtogether_bot  |     spec.loader.exec_module(lib)  # type: ignore
+mealtogether_bot  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+mealtogether_bot  |   File "/app/src/cogs/matching_cog.py", line 98
+mealtogether_bot  |     async def _send_private_notifications(self, it: discord.Interaction, my_req: MatchRequest, opp_req: MatchRequest):
+mealtogether_bot  |                                                                                                                       ^
+mealtogether_bot  | IndentationError: unindent does not match any outer indentation level
+mealtogether_bot  | 
+mealtogether_bot  | The above exception was the direct cause of the following exception:
+mealtogether_bot  | 
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/app/src/main.py", line 36, in <module>
+mealtogether_bot  |     bot.run(os.getenv("DISCORD_TOKEN"))
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 860, in run
+mealtogether_bot  |     asyncio.run(runner())
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+mealtogether_bot  |     return runner.run(main)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+mealtogether_bot  |     return self._loop.run_until_complete(task)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+mealtogether_bot  |     return future.result()
+mealtogether_bot  |            ^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+mealtogether_bot  |     await self.start(token, reconnect=reconnect)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 777, in start
+mealtogether_bot  |     await self.login(token)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 621, in login
+mealtogether_bot  |     await self.setup_hook()
+mealtogether_bot  |   File "/app/src/main.py", line 23, in setup_hook
+mealtogether_bot  |     await self.load_extension("cogs.matching_cog")
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 1013, in load_extension
+mealtogether_bot  |     await self._load_from_module_spec(spec, name)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 938, in _load_from_module_spec
+mealtogether_bot  |     raise errors.ExtensionFailed(key, e) from e
+mealtogether_bot  | discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.matching_cog' raised an error: IndentationError: unindent does not match any outer indentation level (matching_cog.py, line 98)
+mealtogether_bot  | [30;1m2026-05-08 17:58:19[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 935, in _load_from_module_spec
+mealtogether_bot  |     spec.loader.exec_module(lib)  # type: ignore
+mealtogether_bot  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+mealtogether_bot  |   File "/app/src/cogs/matching_cog.py", line 98
+mealtogether_bot  |     async def _send_private_notifications(self, it: discord.Interaction, my_req: MatchRequest, opp_req: MatchRequest):
+mealtogether_bot  |                                                                                                                       ^
+mealtogether_bot  | IndentationError: unindent does not match any outer indentation level
+mealtogether_bot  | 
+mealtogether_bot  | The above exception was the direct cause of the following exception:
+mealtogether_bot  | 
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/app/src/main.py", line 36, in <module>
+mealtogether_bot  |     bot.run(os.getenv("DISCORD_TOKEN"))
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 860, in run
+mealtogether_bot  |     asyncio.run(runner())
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+mealtogether_bot  |     return runner.run(main)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+mealtogether_bot  |     return self._loop.run_until_complete(task)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+mealtogether_bot  |     return future.result()
+mealtogether_bot  |            ^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+mealtogether_bot  |     await self.start(token, reconnect=reconnect)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 777, in start
+mealtogether_bot  |     await self.login(token)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 621, in login
+mealtogether_bot  |     await self.setup_hook()
+mealtogether_bot  |   File "/app/src/main.py", line 23, in setup_hook
+mealtogether_bot  |     await self.load_extension("cogs.matching_cog")
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 1013, in load_extension
+mealtogether_bot  |     await self._load_from_module_spec(spec, name)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 938, in _load_from_module_spec
+mealtogether_bot  |     raise errors.ExtensionFailed(key, e) from e
+mealtogether_bot  | discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.matching_cog' raised an error: IndentationError: unindent does not match any outer indentation level (matching_cog.py, line 98)
+mealtogether_bot  | [30;1m2026-05-08 17:58:22[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 935, in _load_from_module_spec
+mealtogether_bot  |     spec.loader.exec_module(lib)  # type: ignore
+mealtogether_bot  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+mealtogether_bot  |   File "/app/src/cogs/matching_cog.py", line 98
+mealtogether_bot  |     async def _send_private_notifications(self, it: discord.Interaction, my_req: MatchRequest, opp_req: MatchRequest):
+mealtogether_bot  |                                                                                                                       ^
+mealtogether_bot  | IndentationError: unindent does not match any outer indentation level
+mealtogether_bot  | 
+mealtogether_bot  | The above exception was the direct cause of the following exception:
+mealtogether_bot  | 
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/app/src/main.py", line 36, in <module>
+mealtogether_bot  |     bot.run(os.getenv("DISCORD_TOKEN"))
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 860, in run
+mealtogether_bot  |     asyncio.run(runner())
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+mealtogether_bot  |     return runner.run(main)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+mealtogether_bot  |     return self._loop.run_until_complete(task)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+mealtogether_bot  |     return future.result()
+mealtogether_bot  |            ^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+mealtogether_bot  |     await self.start(token, reconnect=reconnect)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 777, in start
+mealtogether_bot  |     await self.login(token)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 621, in login
+mealtogether_bot  |     await self.setup_hook()
+mealtogether_bot  |   File "/app/src/main.py", line 23, in setup_hook
+mealtogether_bot  |     await self.load_extension("cogs.matching_cog")
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 1013, in load_extension
+mealtogether_bot  |     await self._load_from_module_spec(spec, name)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 938, in _load_from_module_spec
+mealtogether_bot  |     raise errors.ExtensionFailed(key, e) from e
+mealtogether_bot  | discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.matching_cog' raised an error: IndentationError: unindent does not match any outer indentation level (matching_cog.py, line 98)
+mealtogether_bot  | [30;1m2026-05-08 17:58:26[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 935, in _load_from_module_spec
+mealtogether_bot  |     spec.loader.exec_module(lib)  # type: ignore
+mealtogether_bot  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+mealtogether_bot  |   File "/app/src/cogs/matching_cog.py", line 98
+mealtogether_bot  |     async def _send_private_notifications(self, it: discord.Interaction, my_req: MatchRequest, opp_req: MatchRequest):
+mealtogether_bot  |                                                                                                                       ^
+mealtogether_bot  | IndentationError: unindent does not match any outer indentation level
+mealtogether_bot  | 
+mealtogether_bot  | The above exception was the direct cause of the following exception:
+mealtogether_bot  | 
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/app/src/main.py", line 36, in <module>
+mealtogether_bot  |     bot.run(os.getenv("DISCORD_TOKEN"))
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 860, in run
+mealtogether_bot  |     asyncio.run(runner())
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+mealtogether_bot  |     return runner.run(main)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+mealtogether_bot  |     return self._loop.run_until_complete(task)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+mealtogether_bot  |     return future.result()
+mealtogether_bot  |            ^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+mealtogether_bot  |     await self.start(token, reconnect=reconnect)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 777, in start
+mealtogether_bot  |     await self.login(token)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 621, in login
+mealtogether_bot  |     await self.setup_hook()
+mealtogether_bot  |   File "/app/src/main.py", line 23, in setup_hook
+mealtogether_bot  |     await self.load_extension("cogs.matching_cog")
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 1013, in load_extension
+mealtogether_bot  |     await self._load_from_module_spec(spec, name)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 938, in _load_from_module_spec
+mealtogether_bot  |     raise errors.ExtensionFailed(key, e) from e
+mealtogether_bot  | discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.matching_cog' raised an error: IndentationError: unindent does not match any outer indentation level (matching_cog.py, line 98)
+mealtogether_bot  | [30;1m2026-05-08 17:58:31[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 935, in _load_from_module_spec
+mealtogether_bot  |     spec.loader.exec_module(lib)  # type: ignore
+mealtogether_bot  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+mealtogether_bot  |   File "/app/src/cogs/matching_cog.py", line 98
+mealtogether_bot  |     async def _send_private_notifications(self, it: discord.Interaction, my_req: MatchRequest, opp_req: MatchRequest):
+mealtogether_bot  |                                                                                                                       ^
+mealtogether_bot  | IndentationError: unindent does not match any outer indentation level
+mealtogether_bot  | 
+mealtogether_bot  | The above exception was the direct cause of the following exception:
+mealtogether_bot  | 
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/app/src/main.py", line 36, in <module>
+mealtogether_bot  |     bot.run(os.getenv("DISCORD_TOKEN"))
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 860, in run
+mealtogether_bot  |     asyncio.run(runner())
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+mealtogether_bot  |     return runner.run(main)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+mealtogether_bot  |     return self._loop.run_until_complete(task)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+mealtogether_bot  |     return future.result()
+mealtogether_bot  |            ^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+mealtogether_bot  |     await self.start(token, reconnect=reconnect)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 777, in start
+mealtogether_bot  |     await self.login(token)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 621, in login
+mealtogether_bot  |     await self.setup_hook()
+mealtogether_bot  |   File "/app/src/main.py", line 23, in setup_hook
+mealtogether_bot  |     await self.load_extension("cogs.matching_cog")
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 1013, in load_extension
+mealtogether_bot  |     await self._load_from_module_spec(spec, name)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 938, in _load_from_module_spec
+mealtogether_bot  |     raise errors.ExtensionFailed(key, e) from e
+mealtogether_bot  | discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.matching_cog' raised an error: IndentationError: unindent does not match any outer indentation level (matching_cog.py, line 98)
+mealtogether_bot  | [30;1m2026-05-08 17:58:40[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 935, in _load_from_module_spec
+mealtogether_bot  |     spec.loader.exec_module(lib)  # type: ignore
+mealtogether_bot  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+mealtogether_bot  |   File "/app/src/cogs/matching_cog.py", line 98
+mealtogether_bot  |     async def _send_private_notifications(self, it: discord.Interaction, my_req: MatchRequest, opp_req: MatchRequest):
+mealtogether_bot  |                                                                                                                       ^
+mealtogether_bot  | IndentationError: unindent does not match any outer indentation level
+mealtogether_bot  | 
+mealtogether_bot  | The above exception was the direct cause of the following exception:
+mealtogether_bot  | 
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/app/src/main.py", line 36, in <module>
+mealtogether_bot  |     bot.run(os.getenv("DISCORD_TOKEN"))
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 860, in run
+mealtogether_bot  |     asyncio.run(runner())
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+mealtogether_bot  |     return runner.run(main)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+mealtogether_bot  |     return self._loop.run_until_complete(task)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+mealtogether_bot  |     return future.result()
+mealtogether_bot  |            ^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+mealtogether_bot  |     await self.start(token, reconnect=reconnect)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 777, in start
+mealtogether_bot  |     await self.login(token)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 621, in login
+mealtogether_bot  |     await self.setup_hook()
+mealtogether_bot  |   File "/app/src/main.py", line 23, in setup_hook
+mealtogether_bot  |     await self.load_extension("cogs.matching_cog")
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 1013, in load_extension
+mealtogether_bot  |     await self._load_from_module_spec(spec, name)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 938, in _load_from_module_spec
+mealtogether_bot  |     raise errors.ExtensionFailed(key, e) from e
+mealtogether_bot  | discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.matching_cog' raised an error: IndentationError: unindent does not match any outer indentation level (matching_cog.py, line 98)
+mealtogether_bot  | [30;1m2026-05-08 17:58:54[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 935, in _load_from_module_spec
+mealtogether_bot  |     spec.loader.exec_module(lib)  # type: ignore
+mealtogether_bot  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+mealtogether_bot  |   File "/app/src/cogs/matching_cog.py", line 98
+mealtogether_bot  |     async def _send_private_notifications(self, it: discord.Interaction, my_req: MatchRequest, opp_req: MatchRequest):
+mealtogether_bot  |                                                                                                                       ^
+mealtogether_bot  | IndentationError: unindent does not match any outer indentation level
+mealtogether_bot  | 
+mealtogether_bot  | The above exception was the direct cause of the following exception:
+mealtogether_bot  | 
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/app/src/main.py", line 36, in <module>
+mealtogether_bot  |     bot.run(os.getenv("DISCORD_TOKEN"))
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 860, in run
+mealtogether_bot  |     asyncio.run(runner())
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+mealtogether_bot  |     return runner.run(main)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+mealtogether_bot  |     return self._loop.run_until_complete(task)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+mealtogether_bot  |     return future.result()
+mealtogether_bot  |            ^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+mealtogether_bot  |     await self.start(token, reconnect=reconnect)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 777, in start
+mealtogether_bot  |     await self.login(token)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 621, in login
+mealtogether_bot  |     await self.setup_hook()
+mealtogether_bot  |   File "/app/src/main.py", line 23, in setup_hook
+mealtogether_bot  |     await self.load_extension("cogs.matching_cog")
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 1013, in load_extension
+mealtogether_bot  |     await self._load_from_module_spec(spec, name)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 938, in _load_from_module_spec
+mealtogether_bot  |     raise errors.ExtensionFailed(key, e) from e
+mealtogether_bot  | discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.matching_cog' raised an error: IndentationError: unindent does not match any outer indentation level (matching_cog.py, line 98)
+mealtogether_bot  | [30;1m2026-05-08 17:59:22[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 935, in _load_from_module_spec
+mealtogether_bot  |     spec.loader.exec_module(lib)  # type: ignore
+mealtogether_bot  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+mealtogether_bot  |   File "/app/src/cogs/matching_cog.py", line 98
+mealtogether_bot  |     async def _send_private_notifications(self, it: discord.Interaction, my_req: MatchRequest, opp_req: MatchRequest):
+mealtogether_bot  |                                                                                                                       ^
+mealtogether_bot  | IndentationError: unindent does not match any outer indentation level
+mealtogether_bot  | 
+mealtogether_bot  | The above exception was the direct cause of the following exception:
+mealtogether_bot  | 
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/app/src/main.py", line 36, in <module>
+mealtogether_bot  |     bot.run(os.getenv("DISCORD_TOKEN"))
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 860, in run
+mealtogether_bot  |     asyncio.run(runner())
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+mealtogether_bot  |     return runner.run(main)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+mealtogether_bot  |     return self._loop.run_until_complete(task)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+mealtogether_bot  |     return future.result()
+mealtogether_bot  |            ^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+mealtogether_bot  |     await self.start(token, reconnect=reconnect)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 777, in start
+mealtogether_bot  |     await self.login(token)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 621, in login
+mealtogether_bot  |     await self.setup_hook()
+mealtogether_bot  |   File "/app/src/main.py", line 23, in setup_hook
+mealtogether_bot  |     await self.load_extension("cogs.matching_cog")
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 1013, in load_extension
+mealtogether_bot  |     await self._load_from_module_spec(spec, name)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 938, in _load_from_module_spec
+mealtogether_bot  |     raise errors.ExtensionFailed(key, e) from e
+mealtogether_bot  | discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.matching_cog' raised an error: IndentationError: unindent does not match any outer indentation level (matching_cog.py, line 98)
+mealtogether_bot  | [30;1m2026-05-08 18:00:15[0m [34;1mINFO    [0m [35mdiscord.client[0m logging in using static token
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 935, in _load_from_module_spec
+mealtogether_bot  |     spec.loader.exec_module(lib)  # type: ignore
+mealtogether_bot  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1074, in get_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap_external>", line 1004, in source_to_code
+mealtogether_bot  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+mealtogether_bot  |   File "/app/src/cogs/matching_cog.py", line 98
+mealtogether_bot  |     async def _send_private_notifications(self, it: discord.Interaction, my_req: MatchRequest, opp_req: MatchRequest):
+mealtogether_bot  |                                                                                                                       ^
+mealtogether_bot  | IndentationError: unindent does not match any outer indentation level
+mealtogether_bot  | 
+mealtogether_bot  | The above exception was the direct cause of the following exception:
+mealtogether_bot  | 
+mealtogether_bot  | Traceback (most recent call last):
+mealtogether_bot  |   File "/app/src/main.py", line 36, in <module>
+mealtogether_bot  |     bot.run(os.getenv("DISCORD_TOKEN"))
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 860, in run
+mealtogether_bot  |     asyncio.run(runner())
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+mealtogether_bot  |     return runner.run(main)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+mealtogether_bot  |     return self._loop.run_until_complete(task)
+mealtogether_bot  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+mealtogether_bot  |     return future.result()
+mealtogether_bot  |            ^^^^^^^^^^^^^^^
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 849, in runner
+mealtogether_bot  |     await self.start(token, reconnect=reconnect)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 777, in start
+mealtogether_bot  |     await self.login(token)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/client.py", line 621, in login
+mealtogether_bot  |     await self.setup_hook()
+mealtogether_bot  |   File "/app/src/main.py", line 23, in setup_hook
+mealtogether_bot  |     await self.load_extension("cogs.matching_cog")
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 1013, in load_extension
+mealtogether_bot  |     await self._load_from_module_spec(spec, name)
+mealtogether_bot  |   File "/usr/local/lib/python3.11/site-packages/discord/ext/commands/bot.py", line 938, in _load_from_module_spec
+mealtogether_bot  |     raise errors.ExtensionFailed(key, e) from e
+mealtogether_bot  | discord.ext.commands.errors.ExtensionFailed: Extension 'cogs.matching_cog' raised an error: IndentationError: unindent does not match any outer indentation level (matching_cog.py, line 98)
