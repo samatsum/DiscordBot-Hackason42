@@ -5,7 +5,7 @@ from typing import Literal
 DetailType = Literal["meal", "game", "exercise"]
 
 @dataclass
-class MealRequest:
+class MatchRequest:
     discord_id: int      # セキュリティ用
     intra_name: str      # 表示・通知用
     start_time: datetime
@@ -22,7 +22,7 @@ class MealRequest:
         """現在時刻が削除基準を過ぎているか判定"""
         return now >= self.expire_at
 
-    def overlaps_with(self, other: 'MealRequest') -> bool:
+    def overlaps_with(self, other: 'MatchRequest') -> bool:
         """
         2つのリクエストが「1時間以上」被っているか判定
         アルゴリズム: max(start) と min(end) の差分を計算

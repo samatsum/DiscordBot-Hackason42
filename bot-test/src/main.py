@@ -6,7 +6,7 @@ from discord.ext import tasks
 from dotenv import load_dotenv
 from datetime import datetime, timedelta, time as dt_time
 
-from logic.models import MealRequest
+from logic.models import MatchRequest
 from logic.matcher import MatchManager
 from logic.api import FTAPIClient
 
@@ -14,19 +14,13 @@ load_dotenv()
 TOKEN, GUILD_ID = os.getenv("DISCORD_TOKEN"), os.getenv("GUILD_ID")
 UID, SECRET = os.getenv("FORTYTWO_APP_UID"), os.getenv("FORTYTWO_APP_SECRET")
 
-DETAIL_CHANNEL_MAP = {
-    "meal":     "matching_meal",
-    "game":     "matching_game",
-    "exercise": "matching_exercise",
-}
-
 DETAIL_EMOJI_MAP = {
     "meal":     "🍽️",
     "game":     "🎮",
     "exercise": "🏃",
 }
 
-class MealBot(discord.Client):
+class MatchBot(discord.Client):
     def __init__(self):
         # membersインテントが必須(Discordのメンバーリスト取得のため)
         intents = discord.Intents.default()
@@ -59,7 +53,7 @@ class MealBot(discord.Client):
         if message.content == "ping":
             await message.channel.send("pong-torinoue3")
 
-client = MealBot()
+client = MatchBot()
 
 # --- DM送信ヘルパー ---
 async def send_match_dm(user: discord.User, opponent_intra: str, image_url: str):
@@ -76,13 +70,13 @@ async def send_match_dm(user: discord.User, opponent_intra: str, image_url: str)
         pass
 
 # --- チャンネル投稿ヘルパー ---
-async def post_to_matching_channel(guild: discord.Guild, req: MealRequest) -> bool:
+async def post_to_matching_channel(guild: discord.Guild, req: MatchRequest) -> bool:
     """
     対応するマッチングチャンネルに投稿する。
     チャンネルが存在しない場合はFalseを返す。
     成功した場合はreq.message_idを設定してTrueを返す。
     """
-    channel_name = DETAIL_CHANNEL_MAP[req.detail]
+    channel_name = f"matching_{req.detail}"
     channel = discord.utils.get(guild.text_channels, name=channel_name)
     if not channel:
         return False
@@ -100,7 +94,7 @@ async def post_to_matching_channel(guild: discord.Guild, req: MealRequest) -> bo
     req.message_id = msg.id
     return True
 
-async def delete_channel_message(guild: discord.Guild, req: MealRequest):
+async def delete_channel_message(guild: discord.Guild, req: MatchRequest):
     """
     チャンネルに投稿されたマッチング情報を削除する。
     メッセージが既に存在しない場合もエラーを吐かない。
@@ -108,7 +102,7 @@ async def delete_channel_message(guild: discord.Guild, req: MealRequest):
     if not req.message_id:
         return
 
-    channel_name = DETAIL_CHANNEL_MAP[req.detail]
+    channel_name = f"matching_{req.detail}"
     channel = discord.utils.get(guild.text_channels, name=channel_name)
     if not channel:
         return
@@ -151,10 +145,10 @@ async def detail_auto(it: discord.Interaction, current: str):
     return [app_commands.Choice(name=o, value=o) for o in options if current in o]
 
 # --- コマンド ---
-@client.tree.command(name="mealtogether")
+@client.tree.command(name="together")
 @app_commands.describe(start="開始", end="終了", detail="目的 (meal / game / exercise)")
 @app_commands.autocomplete(start=start_auto, end=end_auto, detail=detail_auto)
-async def mealtogether(it: discord.Interaction, start: str, end: str, detail: str):
+async def together(it: discord.Interaction, start: str, end: str, detail: str):
     await it.response.defer(ephemeral=True)
 
     if detail not in ("meal", "game", "exercise"):
@@ -178,7 +172,7 @@ async def mealtogether(it: discord.Interaction, start: str, end: str, detail: st
     if e_dt - s_dt < timedelta(hours=1):
         return await it.followup.send("❌ 最短でも1時間以上の枠を指定してください。")
 
-    req = MealRequest(it.user.id, my_intra, s_dt, e_dt, detail)
+    req = MatchRequest(it.user.id, my_intra, s_dt, e_dt, detail)
 
     # 同一人物(Discord ID)の重複チェック
     if client.matcher.check_user_overlap(it.user.id, req):
@@ -209,14 +203,13 @@ async def mealtogether(it: discord.Interaction, start: str, end: str, detail: st
         # チャンネルへ投稿
         channel_exists = await post_to_matching_channel(it.guild, req)
         if not channel_exists:
-            channel_name = DETAIL_CHANNEL_MAP[detail]
-            return await it.followup.send(f"❌ `#{channel_name}` チャンネルが見つかりません。サーバー管理者に連絡してください。")
+            return await it.followup.send(f"❌ `#matching_{detail}` チャンネルが見つかりません。サーバー管理者に連絡してください。")
 
         client.matcher.add_request(req)
         await it.followup.send(f"✅ 追加しました: {start}-{end} ({detail})")
 
-@client.tree.command(name="mealcancel")
-async def mealcancel(it: discord.Interaction):
+@client.tree.command(name="cancel")
+async def cancel(it: discord.Interaction):
     cancelled = client.matcher.cancel_user_requests(it.user.id)
     for req in cancelled:
         await delete_channel_message(it.guild, req)

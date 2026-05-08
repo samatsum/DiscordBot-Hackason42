@@ -1,12 +1,12 @@
 from typing import List, Optional
 from datetime import datetime
-from logic.models import MealRequest
+from logic.models import MatchRequest
 
 class MatchManager:
     def __init__(self):
-        self.queue: List[MealRequest] = []
+        self.queue: List[MatchRequest] = []
 
-    def cleanup(self, now: datetime) -> List[MealRequest]:
+    def cleanup(self, now: datetime) -> List[MatchRequest]:
         """
         期限切れリクエストをキューから取り除き、削除対象を返す
         """
@@ -14,7 +14,7 @@ class MatchManager:
         self.queue = [req for req in self.queue if not req.is_expired(now)]
         return expired
 
-    def check_user_overlap(self, discord_id: int, new_req: MealRequest) -> bool:
+    def check_user_overlap(self, discord_id: int, new_req: MatchRequest) -> bool:
         """
         1人のDiscordユーザーが複数の予約（別Intra名含む）を被せて入れるのを防ぐ
         """
@@ -24,7 +24,7 @@ class MatchManager:
                 return True
         return False
 
-    def find_match(self, new_req: MealRequest) -> Optional[MealRequest]:
+    def find_match(self, new_req: MatchRequest) -> Optional[MatchRequest]:
         """
         自分以外のユーザー（異なるDiscord ID）とのみマッチングさせる
         """
@@ -36,10 +36,10 @@ class MatchManager:
                 return self.queue.pop(i)
         return None
 
-    def add_request(self, req: MealRequest):
+    def add_request(self, req: MatchRequest):
         self.queue.append(req)
 
-    def cancel_user_requests(self, discord_id: int) -> List[MealRequest]:
+    def cancel_user_requests(self, discord_id: int) -> List[MatchRequest]:
         """キャンセルされたリクエストを返す（チャンネル投稿削除のため）"""
         cancelled = [req for req in self.queue if req.discord_id == discord_id]
         self.queue = [req for req in self.queue if req.discord_id != discord_id]
