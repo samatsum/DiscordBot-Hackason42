@@ -29,54 +29,86 @@ async def detail_auto(it: discord.Interaction, current: str):
     """models.pyの定義に基づいてサジェストを生成"""
     return [app_commands.Choice(name=t, value=t) for t in VALID_DETAILS if current in t]
 
-# --- Cogクラス ---
+
+class ParticipantSelectView(discord.ui.View):
+    def __init__(self, original_it, cog, start, end, detail):
+        super().__init__(timeout=60)
+        self.original_it = original_it
+        self.cog = cog
+        self.start = start
+        self.end = end
+        self.detail = detail
+
+    # 【追加】ソロ参加ボタン：メニュー操作なしで即座に確定させる
+    @discord.ui.button(label="自分一人で参加する", style=discord.ButtonStyle.grey, row=1)
+    async def solo_button(self, it: discord.Interaction, button: discord.ui.Button):
+        await it.response.defer(ephemeral=True)
+        # UIを閉じ、空のリストを渡してマッチング処理へ
+        await self.original_it.edit_original_response(content="✅ ソロ参加で確定しました。", view=None)
+        await self.cog.process_matching(it, self.start, self.end, self.detail, [])
+
+    # 複数人選択メニュー
+    @discord.ui.select(
+        cls=discord.ui.UserSelect, 
+        placeholder="メンバーを選択（最大24名）", 
+        min_values=1, 
+        max_values=24,
+        row=0
+    )
+    async def select_participants(self, it: discord.Interaction, select: discord.ui.UserSelect):
+        # バリデーション済みの名前リストを作成
+        selected_names = [m.display_name for m in select.values if self.cog.bot.api.validate_user(m.display_name)]
+        
+        await it.response.defer(ephemeral=True)
+        await self.original_it.edit_original_response(content=f"✅ {len(selected_names)}名を指定して確定しました。", view=None)
+        
+        # 選択されたリストを渡してマッチング処理へ
+        await self.cog.process_matching(it, self.start, self.end, self.detail, selected_names)
+
+# --- 2. Cogクラス ---
 class MatchingCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.Cog.listener()
-    async def on_ready(self):
-        self.cleanup_task.start()
-        # 【追加】Discordサーバーへ最新のコマンド仕様(Enumの選択肢)を強制上書き同期する
-        await self.bot.tree.sync()
-
-    @tasks.loop(time=[dt_time(hour=h, minute=m) for h in range(24) for m in [0, 15, 30, 45]])
-    async def cleanup_task(self):
-        """期限切れリクエストの自動削除"""
-        expired = self.bot.matcher.cleanup(datetime.now())
-        for req in expired:
-            for guild in self.bot.guilds:
-                await discord_utils.delete_channel_message(guild, req)
-
     @app_commands.command(name="together", description="マッチング募集を開始します")
-    @app_commands.describe(start="開始", end="終了", detail="目的を選択してください")
-    @app_commands.autocomplete(start=start_auto, end=end_auto, detail=detail_auto)
+    @app_commands.describe(start="開始時間", end="終了時間", detail="目的を選択")
+    @app_commands.autocomplete(
+        start=time_utils.start_auto, 
+        end=time_utils.end_auto, 
+        detail=time_utils.detail_auto
+    )
     async def together(self, it: discord.Interaction, start: str, end: str, detail: str):
-        await it.response.defer(ephemeral=True)
+        """第一段階：基本情報の入力とメンバー選択Viewの提示"""
+        # ephemeral=True にすることで、この選択メニューは実行者にしか見えません
+        view = ParticipantSelectView(it, self, start, end, detail)
+        await it.response.send_message("👥 一緒に参加するメンバー（Others）を選択してください：", view=view, ephemeral=True)
 
-        # models.pyのリストに存在するかチェック
-        if detail not in VALID_DETAILS:
-            await it.delete_original_response()
-            return await it.followup.send(f"❌ 無効な目的です。{VALID_DETAILS} から選択してください。", ephemeral=True)
-
-        if not self.bot.api.validate_user(it.user.display_name):
-            await it.delete_original_response()
-            return await it.followup.send("❌ 表示名をIntraログイン名に合わせてください。", ephemeral=True)
-
+    async def process_matching(self, it: discord.Interaction, start: str, end: str, detail: str, others: list[str]):
+        """第二段階：実際のデータ作成とマッチング実行"""
+        # 時間パース
         s_dt, e_dt = time_utils.parse_session_times(start, end, datetime.now())
-        if e_dt - s_dt < timedelta(hours=1):
-            await it.delete_original_response()
-            return await it.followup.send("❌ 最短でも1時間以上の枠を指定してください。", ephemeral=True)
-
-        req = MatchRequest(it.user.id, it.user.display_name, s_dt, e_dt, detail)
+        
+        # 代表者のIntra名（it.user.display_name）と選択されたothersを統合
+        # ※ ここでは代表者1人のRequestとして扱いますが、intra_nameに「samatum + 2 others」のように
+        #    表示用の情報を付与するなどの拡張が可能です。
+        
+        display_name = f"{it.user.display_name} (with {', '.join(others)})" if others else it.user.display_name
+        
+        req = MatchRequest(it.user.id, display_name, s_dt, e_dt, detail)
 
         async with self.bot.match_lock:
+            # 既存の重複チェック
             if self.bot.matcher.check_user_overlap(it.user.id, req):
-                await it.delete_original_response()
                 return await it.followup.send("⚠️ 既に同時間帯に予約が入っています。", ephemeral=True)
 
-            await self._execute_match(it, req)
-
+            # マッチング実行（既存ロジック）
+            matched = self.bot.matcher.find_match(req)
+            if matched:
+                # 成立時の処理（既存の _handle_match_success 相当）
+                await self._handle_match_success(it, req, matched)
+            else:
+                # 待機時の処理（既存の _handle_match_wait 相当）
+                await self._handle_match_wait(it, req)
 
 
     async def _execute_match(self, it: discord.Interaction, req: MatchRequest):
