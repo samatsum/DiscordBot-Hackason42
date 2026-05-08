@@ -34,6 +34,13 @@ class MatchBot(commands.Bot):
             self.tree.copy_global_to(guild=guild)
         await self.tree.sync(guild=guild)
 
+    # --- DEBUG用: ping pong 提出時はこのメソッド全体をコメントアウト
+    async def on_message(self, message: discord.Message):
+        if message.author == self.user:
+            return
+        if message.content == "ping":
+            await message.channel.send("pong-torinoue42")
+
 bot = MatchBot()
 
 if __name__ == "__main__":
