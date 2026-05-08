@@ -1,6 +1,5 @@
 import os
 import discord
-import asyncio
 from discord import app_commands
 from discord.ext import tasks
 from dotenv import load_dotenv
@@ -137,12 +136,12 @@ async def end_auto(it: discord.Interaction, current: str):
             if temp_base < now - timedelta(minutes=15): temp_base += timedelta(days=1)
             base = get_rounded_time(temp_base)
         except ValueError: pass
-    choices = [(base + timedelta(minutes=i * 15)).strftime("%H:%M") for i in range(4, 42)]
+    choices = [(base + timedelta(minutes=i * 15)).strftime("%H:%M") for i in range(4, 25)]
     return [app_commands.Choice(name=t, value=t) for t in choices if current in t][:25]
 
 async def detail_auto(it: discord.Interaction, current: str):
-    options = ["meal", "game", "exercise"]
-    return [app_commands.Choice(name=o, value=o) for o in options if current in o]
+    choices = ["meal", "game", "exercise"]
+    return [app_commands.Choice(name=t, value=t) for t in choices if current in t]
 
 # --- コマンド ---
 @client.tree.command(name="together")
@@ -203,7 +202,7 @@ async def together(it: discord.Interaction, start: str, end: str, detail: str):
         # チャンネルへ投稿
         channel_exists = await post_to_matching_channel(it.guild, req)
         if not channel_exists:
-            return await it.followup.send(f"❌ `#matching_{detail}` チャンネルが見つかりません。サーバー管理者に連絡してください。")
+            return await it.followup.send(f"❌ `#matching_{detail}` チャンネルが見つかりません。`#matching_{detail}` チャンネルを作成してください。")
 
         client.matcher.add_request(req)
         await it.followup.send(f"✅ 追加しました: {start}-{end} ({detail})")
