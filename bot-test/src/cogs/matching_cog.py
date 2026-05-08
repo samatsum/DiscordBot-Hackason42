@@ -80,26 +80,35 @@ class MatchingCog(commands.Cog):
 
     async def _handle_match_success(self, it: discord.Interaction, my_req: MatchRequest, opp_req: MatchRequest):
         """マッチング成立時のオーケストレーション"""
-        await discord_utils.delete_channel_message(it.guild, opp_req)
-        await self._send_private_notifications(it, my_req, opp_req)
-        await discord_utils.announce_match(it.guild, my_req, opp_req)
+        try:
+            await discord_utils.delete_channel_message(it.guild, opp_req)
+            await self._send_private_notifications(it, my_req, opp_req)
+            await discord_utils.announce_match(it.guild, my_req, opp_req)
+            await it.delete_original_response()
+        except Exception as e:
+            # 万が一裏側の処理でエラーが起きても、Bot全体をクラッシュさせない安全網
+            print(f"マッチング後の処理でエラー発生: {e}")
 
     async def _send_private_notifications(self, it: discord.Interaction, my_req: MatchRequest, opp_req: MatchRequest):
-            """DM通知の呼び出しを更新"""
+            """DM通知のみを担当するサブ関数（共通の時間を計算する）"""
             opp_img = self.bot.api.get_user_image(opp_req.intra_name)
             my_img = self.bot.api.get_user_image(my_req.intra_name)
 
-            # 自分（コマンド実行者）へのDM：相手の情報とマッチした時間帯を通知
+            # 【追加】マッチングが成立した「共通の時間帯」を計算
+            match_start = max(my_req.start_time, opp_req.start_time)
+            match_end = min(my_req.end_time, opp_req.end_time)
+
+            # 自分（後攻）へのDM
             await discord_utils.send_match_dm(
                 it.user, 
                 opp_req.intra_name, 
                 opp_img, 
-                opp_req.start_time, 
-                opp_req.end_time, 
-                opp_req.detail
+                match_start, 
+                match_end, 
+                my_req.detail
             )
 
-            # 相手へのDM：自分の情報とマッチした時間帯を通知
+            # 相手（先攻）へのDM
             try:
                 opp_user = await self.bot.fetch_user(opp_req.discord_id)
                 if opp_user:
@@ -107,8 +116,8 @@ class MatchingCog(commands.Cog):
                         opp_user, 
                         my_req.intra_name, 
                         my_img, 
-                        my_req.start_time, 
-                        my_req.end_time, 
+                        match_start, 
+                        match_end, 
                         my_req.detail
                     )
             except discord.HTTPException:
