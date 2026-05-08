@@ -1,5 +1,6 @@
 import discord
 from logic.models import MatchRequest
+from datetime import datetime, timedelta
 
 DETAIL_EMOJI_MAP = {
     "meal": "🍽️", "game": "🎮", "exercise": "🏃",
