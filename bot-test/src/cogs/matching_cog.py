@@ -62,10 +62,13 @@ class MatchingCog(commands.Cog):
             return await it.followup.send("❌ 最短でも1時間以上の枠を指定してください。")
 
         req = MatchRequest(it.user.id, it.user.display_name, s_dt, e_dt, detail)
-        if self.bot.matcher.check_user_overlap(it.user.id, req):
-            return await it.followup.send("⚠️ 既に同時間帯に予約が入っています。")
+        async with self.bot.match_lock:
+            if self.bot.matcher.check_user_overlap(it.user.id, req):
+                return await it.followup.send("⚠️ 既に同時間帯に予約が入っています。")
 
-        await self._execute_match(it, req)
+            await self._execute_match(it, req)
+
+
 
     async def _execute_match(self, it: discord.Interaction, req: MatchRequest):
         """マッチングの実行と通知の振り分け"""

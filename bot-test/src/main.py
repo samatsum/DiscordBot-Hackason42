@@ -1,3 +1,4 @@
+import asyncio
 import os
 import discord
 from discord.ext import commands
@@ -17,6 +18,9 @@ class MatchBot(commands.Bot):
         # 共有リソースの保持
         self.matcher = MatchManager()
         self.api = FTAPIClient(os.getenv("FORTYTWO_APP_UID"), os.getenv("FORTYTWO_APP_SECRET"))
+
+        # ミューテックス（排他制御用ロック）の追加
+        self.match_lock = asyncio.Lock()
 
     async def setup_hook(self):
         # Cogの動的ロード
