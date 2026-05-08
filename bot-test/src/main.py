@@ -20,6 +20,7 @@ class MatchBot(commands.Bot):
         self.matcher = MatchManager()
         self.api = FTAPIClient(os.getenv("FORTYTWO_APP_UID"), os.getenv("FORTYTWO_APP_SECRET"))
 
+        self.api.sync_all_tokyo_users()
         # ミューテックス（排他制御用ロック）の追加
         self.match_lock = asyncio.Lock()
 

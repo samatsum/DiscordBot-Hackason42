@@ -5,7 +5,17 @@ services:
     env_file:
       - .env
     volumes:
-      # ホストのsrcディレクトリをコンテナ内にマウント（開発時のホットリロード用）
+      # 【重要】ホストの src ディレクトリをコンテナの /app/src に同期します。
+      # これにより、コンテナ内で作成・更新される src/data/user_cache.json が
+      # ホスト側にも保存され、コンテナを再起動・削除してもキャッシュが消えません。
       - ./src:/app/src
-    init: true  # 【重要】PID 1問題を解決し、シグナルを正しく処理する
-    restart: unless-stopped # クラッシュ時に自動再起動
+    
+    # Python プロセスが終了シグナル（SIGINT/SIGTERM）を正しく受け取れるようにします。
+    # これがないと、docker compose stop 時に終了が遅くなることがあります。
+    init: true  
+    
+    # 予期せぬエラーでプロセスが落ちた場合に、自動的に再起動を試みます。
+    restart: unless-stopped
+
+    # ログ出力をリアルタイムで確認しやすくするための設定
+    tty: true

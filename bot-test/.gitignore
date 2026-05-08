@@ -1,1 +1,2 @@
 .env
+src/data/user_cache.json
