@@ -2,7 +2,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands, tasks
 from datetime import datetime, timedelta, time as dt_time
-from logic.models import MatchRequest
+from logic.models import MatchRequest, VALID_DETAILS
 from utils import time_utils, discord_utils
 
 # --- オートコンプリート関数 (モジュールレベル) ---
@@ -26,8 +26,8 @@ async def end_auto(it: discord.Interaction, current: str):
     return [app_commands.Choice(name=t, value=t) for t in choices if current in t][:25]
 
 async def detail_auto(it: discord.Interaction, current: str):
-    choices = ["meal", "game", "exercise"]
-    return [app_commands.Choice(name=t, value=t) for t in choices if current in t]
+    """models.pyの定義に基づいてサジェストを生成"""
+    return [app_commands.Choice(name=t, value=t) for t in VALID_DETAILS if current in t]
 
 # --- Cogクラス ---
 class MatchingCog(commands.Cog):
@@ -37,6 +37,8 @@ class MatchingCog(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         self.cleanup_task.start()
+        # 【追加】Discordサーバーへ最新のコマンド仕様(Enumの選択肢)を強制上書き同期する
+        await self.bot.tree.sync()
 
     @tasks.loop(time=[dt_time(hour=h, minute=m) for h in range(24) for m in [0, 15, 30, 45]])
     async def cleanup_task(self):
@@ -47,24 +49,31 @@ class MatchingCog(commands.Cog):
                 await discord_utils.delete_channel_message(guild, req)
 
     @app_commands.command(name="together", description="マッチング募集を開始します")
-    @app_commands.describe(start="開始", end="終了", detail="目的 (meal / game / exercise)")
+    @app_commands.describe(start="開始", end="終了", detail="目的を選択してください")
     @app_commands.autocomplete(start=start_auto, end=end_auto, detail=detail_auto)
     async def together(self, it: discord.Interaction, start: str, end: str, detail: str):
         await it.response.defer(ephemeral=True)
 
-        if detail not in ("meal", "game", "exercise"):
-            return await it.followup.send("❌ detail は meal / game / exercise のいずれかを選択してください。")
+        # models.pyのリストに存在するかチェック
+        if detail not in VALID_DETAILS:
+            await it.delete_original_response()
+            return await it.followup.send(f"❌ 無効な目的です。{VALID_DETAILS} から選択してください。", ephemeral=True)
+
         if not self.bot.api.validate_user(it.user.display_name):
-            return await it.followup.send("❌ 表示名をIntraログイン名に合わせてください。")
+            await it.delete_original_response()
+            return await it.followup.send("❌ 表示名をIntraログイン名に合わせてください。", ephemeral=True)
 
         s_dt, e_dt = time_utils.parse_session_times(start, end, datetime.now())
         if e_dt - s_dt < timedelta(hours=1):
-            return await it.followup.send("❌ 最短でも1時間以上の枠を指定してください。")
+            await it.delete_original_response()
+            return await it.followup.send("❌ 最短でも1時間以上の枠を指定してください。", ephemeral=True)
 
         req = MatchRequest(it.user.id, it.user.display_name, s_dt, e_dt, detail)
+
         async with self.bot.match_lock:
             if self.bot.matcher.check_user_overlap(it.user.id, req):
-                return await it.followup.send("⚠️ 既に同時間帯に予約が入っています。")
+                await it.delete_original_response()
+                return await it.followup.send("⚠️ 既に同時間帯に予約が入っています。", ephemeral=True)
 
             await self._execute_match(it, req)
 

@@ -1,5 +1,6 @@
 import asyncio
 import os
+from enum import Enum
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv

@@ -2,36 +2,39 @@ from datetime import datetime, timedelta
 from dataclasses import dataclass
 from typing import Literal
 
-DetailType = Literal["meal", "game", "exercise"]
+DETAIL_EMOJI_MAP = {
+    "meal": "🍽️",
+    "game": "🎮",
+    "exercise": "🏃",
+    "study": "📖",
+}
+# 辞書のキー ("meal", "game" 等) だけを自動でリスト化
+VALID_DETAILS = list(DETAIL_EMOJI_MAP.keys())
+
+# 型ヒント用
+DetailType = Literal["meal", "game", "exercise", "study"]
 
 @dataclass
 class MatchRequest:
-    discord_id: int      # セキュリティ用
-    intra_name: str      # 表示・通知用
+    discord_id: int
+    intra_name: str
     start_time: datetime
     end_time: datetime
-    detail: DetailType   # マッチング目的
-    message_id: int | None = None  # チャンネル投稿メッセージID
+    detail: str  # シンプルに文字列(str)として扱う
+    message_id: int | None = None
 
     @property
     def expire_at(self) -> datetime:
-        """削除基準時刻（終了時刻の15分前）"""
         return self.end_time - timedelta(minutes=15)
 
     def is_expired(self, now: datetime) -> bool:
-        """現在時刻が削除基準を過ぎているか判定"""
         return now >= self.expire_at
 
     def overlaps_with(self, other: 'MatchRequest') -> bool:
-        """
-        2つのリクエストが「1時間以上」被っているか判定
-        アルゴリズム: max(start) と min(end) の差分を計算
-        同じdetailのみマッチング対象とする
-        """
+        # 文字列同士の比較なので、Enumのような同期バグが起きません
         if self.detail != other.detail:
             return False
         latest_start = max(self.start_time, other.start_time)
         earliest_end = min(self.end_time, other.end_time)
-
         overlap_duration = earliest_end - latest_start
         return overlap_duration >= timedelta(hours=1)
