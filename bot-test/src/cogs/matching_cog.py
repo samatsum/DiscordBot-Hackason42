@@ -38,16 +38,8 @@ class ParticipantSelectView(discord.ui.View):
         self.start = start
         self.end = end
         self.detail = detail
+        self.selected_names = [] # 選択された名前を一時保持
 
-    # 【追加】ソロ参加ボタン：メニュー操作なしで即座に確定させる
-    @discord.ui.button(label="自分一人で参加する", style=discord.ButtonStyle.grey, row=1)
-    async def solo_button(self, it: discord.Interaction, button: discord.ui.Button):
-        await it.response.defer(ephemeral=True)
-        # UIを閉じ、空のリストを渡してマッチング処理へ
-        await self.original_it.edit_original_response(content="✅ ソロ参加で確定しました。", view=None)
-        await self.cog.process_matching(it, self.start, self.end, self.detail, [])
-
-    # 複数人選択メニュー
     @discord.ui.select(
         cls=discord.ui.UserSelect, 
         placeholder="メンバーを選択（最大24名）", 
@@ -56,14 +48,35 @@ class ParticipantSelectView(discord.ui.View):
         row=0
     )
     async def select_participants(self, it: discord.Interaction, select: discord.ui.UserSelect):
-        # バリデーション済みの名前リストを作成
-        selected_names = [m.display_name for m in select.values if self.cog.bot.api.validate_user(m.display_name)]
+        # 42生チェックを通った名前だけをリストに保存
+        self.selected_names = [
+            m.display_name for m in select.values 
+            if self.cog.bot.api.validate_user(m.display_name)
+        ]
+        
+        # 選択状況を更新して表示し、ボタンを押すよう促す（まだ処理は走らせない）
+        names_str = ", ".join(self.selected_names)
+        await it.response.edit_message(
+            content=f"👥 選択中: **{names_str}**\n間違いなければ「この人数で決定する」ボタンを押してください。",
+            view=self
+        )
+
+    # 【新機能】明示的な確定ボタン
+    @discord.ui.button(label="この人数で決定する", style=discord.ButtonStyle.primary, row=1)
+    async def confirm_button(self, it: discord.Interaction, button: discord.ui.Button):
+        if not self.selected_names:
+            return await it.response.send_message("❌ メンバーが選択されていません。リストから選ぶか「自分一人で」を押してください。", ephemeral=True)
         
         await it.response.defer(ephemeral=True)
-        await self.original_it.edit_original_response(content=f"✅ {len(selected_names)}名を指定して確定しました。", view=None)
-        
-        # 選択されたリストを渡してマッチング処理へ
-        await self.cog.process_matching(it, self.start, self.end, self.detail, selected_names)
+        await self.original_it.edit_original_response(content=f"✅ {len(self.selected_names)}名を指定して確定しました。", view=None)
+        await self.cog.process_matching(it, self.start, self.end, self.detail, self.selected_names)
+
+    # ソロ参加ボタン（ボタンの並び順を調整）
+    @discord.ui.button(label="自分一人で参加する", style=discord.ButtonStyle.grey, row=1)
+    async def solo_button(self, it: discord.Interaction, button: discord.ui.Button):
+        await it.response.defer(ephemeral=True)
+        await self.original_it.edit_original_response(content="✅ ソロ参加で確定しました。", view=None)
+        await self.cog.process_matching(it, self.start, self.end, self.detail, [])
 
 # --- 2. Cogクラス ---
 class MatchingCog(commands.Cog):
