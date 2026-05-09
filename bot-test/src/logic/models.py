@@ -18,6 +18,7 @@ DetailType = Literal["meal", "game", "exercise", "study"]
 class MatchRequest:
     discord_id: int
     intra_name: str
+    other_discord_ids: list[int]
     start_time: datetime
     end_time: datetime
     detail: str  # シンプルに文字列(str)として扱う

@@ -52,21 +52,19 @@ async def delete_channel_message(guild: discord.Guild, req: MatchRequest):
         pass
 
 async def announce_match(guild: discord.Guild, my_req: MatchRequest, opp_req: MatchRequest):
-    """
-    チャンネル上でメンションを飛ばし、マッチング成立を公表する。
-    """
     channel = discord.utils.get(guild.text_channels, name=f"matching_{my_req.detail}")
-    if not channel:
-        return
+    if not channel: return
 
-    # メンション文字列の作成 (<@ID> の形式)
-    m_1 = f"<@{my_req.discord_id}>"
-    m_2 = f"<@{opp_req.discord_id}>"
+    # 代表者 + 同行者全員のメンションを作成
+    def get_mentions(req):
+        ids = [req.discord_id] + req.other_discord_ids
+        return " ".join([f"<@{uid}>" for uid in ids])
+
+    m_1, m_2 = get_mentions(my_req), get_mentions(opp_req)
     
     embed = discord.Embed(
         title="🤝 マッチング成立！",
-        description=f"{m_1} さんと {m_2} さんのマッチングが成立しました！　DMを確認してください！",
-        color=0x2ecc71 # 緑色
+        description=f"{m_1}\nと\n{m_2}\nのマッチングが成立しました！",
+        color=0x2ecc71
     )
-    # チャンネルへ投稿（これにより両者に通知が行く）
     await channel.send(content=f"{m_1} {m_2}", embed=embed)
